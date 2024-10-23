@@ -5,7 +5,7 @@ A command-line interface for [DiceDB](https://dicedb.io).
 ## Get Started
 
 ```sh
-curl -sL https://github.com/DiceDB/dicedb-cli/install.sh | sh
+curl -sL https://raw.githubusercontent.com/DiceDB/dicedb-cli/refs/heads/master/install.sh | sh
 ```
 
 ## Features
