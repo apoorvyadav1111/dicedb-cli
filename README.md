@@ -1,18 +1,12 @@
-# DiceDB CLI Client
+# DiceDB CLI
 
-A command-line interface client for [DiceDB](https://dicedb.io).
-## Table of Contents
+A command-line interface for [DiceDB](https://dicedb.io).
 
-- [Features](#features)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Usage](#usage)
-    - [Basic Commands](#basic-commands)
-    - [Watch Commands](#watch-commands)
-- [Command Autocompletion](#command-autocompletion)
-- [For Developers](#for-developers)
-    - [Contributing](#contributing)
-- [License](#license)
+## Get Started
+
+```sh
+curl -sL https://github.com/DiceDB/dicedb-cli/install.sh | sh
+```
 
 ## Features
 
