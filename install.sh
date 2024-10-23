@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env sh
+set -e
 
 REPO="DiceDB/dicedb-cli"
 LATEST_RELEASE=$(curl -s https://api.github.com/repos/$REPO/releases/latest | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
@@ -21,19 +22,38 @@ case $ARCH in
   *) echo "Architecture not supported"; exit 1 ;;
 esac
 
-BINARY="dicedb-cli_${OS}_${ARCH}.tar.gz"
+BINARY="dicedb-cli_${LATEST_RELEASE}_${OS}_${ARCH}.tar.gz"
 URL="https://github.com/$REPO/releases/download/$LATEST_RELEASE/$BINARY"
 
 echo "Downloading $BINARY..."
 curl -L $URL -o /tmp/$BINARY
 
 # Extract and move to /usr/local/bin
-echo "Installing..."
 tar -xzf /tmp/$BINARY -C /tmp
-chmod +x /tmp/dicedb-cli
-sudo mv /tmp/dicedb-cli /usr/local/bin/dicedb-cli
+chmod 777 /tmp/dicedb-cli
 
-# Clean up
-rm /tmp/$BINARY
+DICEDB_DIR=/usr/local/dicedb
+DICEDB_BIN_DIR=$DICEDB_DIR/bin
 
-echo "DiceDB CLI installed successfully!"
+if [ ! -d "$DICEDB_DIR" ]; then
+  sudo mkdir -p $DICEDB_DIR
+fi
+
+if [ ! -d "$DICEDB_BIN_DIR" ]; then
+  sudo mkdir -p $DICEDB_BIN_DIR
+  sudo chmod 777 $DICEDB_BIN_DIR
+fi
+
+mv /tmp/dicedb-cli $DICEDB_BIN_DIR
+sudo ln -sf $DICEDB_BIN_DIR/dicedb-cli /usr/local/bin/dicedb-cli
+
+echo "\n
+██████╗ ██╗ ██████╗███████╗██████╗ ██████╗ 
+██╔══██╗██║██╔════╝██╔════╝██╔══██╗██╔══██╗
+██║  ██║██║██║     █████╗  ██║  ██║██████╔╝
+██║  ██║██║██║     ██╔══╝  ██║  ██║██╔══██╗
+██████╔╝██║╚██████╗███████╗██████╔╝██████╔╝
+╚═════╝ ╚═╝ ╚═════╝╚══════╝╚═════╝ ╚═════╝
+"
+echo "> if you get 'command not found' error, add '/usr/local/bin' to your 'PATH' variable."
+echo "\nDiceDB CLI installation complete ✓"
