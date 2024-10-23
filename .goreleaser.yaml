@@ -21,7 +21,7 @@ builds:
 
 archives:
   - format: tar.gz
-    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ toLower .Os }}_{{ toLower .Arch }}"
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ tolower .Os }}_{{ tolower .Arch }}"
     format_overrides:
       - goos: windows
         format: zip
